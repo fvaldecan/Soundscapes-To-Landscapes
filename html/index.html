@@ -1,0 +1,296 @@
+<html>
+<head>
+<title>CS 385 Final Project</title>
+<link href="http://fonts.googleapis.com/css?family=Nunito:300|Crimson+Text|Droid+Sans+Mono" rel="stylesheet" type="text/css">
+<link rel="stylesheet" title="Default" href="styles/github.css">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>  
+
+<link rel="stylesheet" href="highlighting/styles/default.css">
+<script src="highlighting/highlight.pack.js"></script>
+
+<style type="text/css">
+body {
+	margin: 0px;
+	width: 100%;
+	font-family: 'Crimson Text', serif;
+	font-size: 20px;
+	background: #fcfcfc;
+}
+h1 {
+	font-family: 'Nunito', sans-serif;
+	font-weight: normal;
+	font-size: 28px;
+	margin: 25px 0px 0px 0px;
+	text-transform: lowercase;
+
+}
+
+h2 {
+	font-family: 'Nunito', sans-serif;
+	font-weight: normal;
+	font-size: 32px;
+	margin: 15px 0px 35px 0px;
+	color: #333;	
+	word-spacing: 3px;
+}
+
+h3 {
+	font-family: 'Nunito', sans-serif;
+	font-weight: normal;
+	font-size: 26px;
+	margin: 10px 0px 10px 0px;
+	color: #333;
+	word-spacing: 2px;
+}
+h4 {
+	font-family: 'Nunito', sans-serif;
+	font-weight: normal;
+	font-size: 22px;
+	margin: 10px 0px 10px 0px;
+	color: #333;
+	word-spacing: 2px;
+}
+
+h5 {
+	font-family: 'Nunito', sans-serif;
+	font-weight: normal;
+	font-size: 18px;
+	margin: 10px 0px 10px 0px;
+	color: #111;
+	word-spacing: 2px;
+}
+
+p, li {
+	color: #444;
+}
+
+a {
+	color: #DE3737;
+}
+
+.container {
+	margin: 0px auto 0px auto;
+	width: 1160px;
+}
+
+#header {
+	background: #333;
+	width: 100%;
+}
+
+#headersub {
+	color: #ccc;
+	width: 960px;
+	margin: 0px auto 0px auto;
+	padding: 20px 0px 20px 0px;
+}
+
+.chart {
+	width: 480px;
+}
+.lol {
+	font-size: 16px;
+	color: #888;
+	font-style: italic;
+}
+.sep {
+	height: 1px;
+	width: 100%;
+	background: #999;
+	margin: 20px 0px 20px 0px;
+}
+.footer{
+	font-size: 16px;
+}
+.latex {
+	width: 100%;
+}
+
+.latex img {
+	display: block;
+	margin: 0px auto 0px auto;
+}
+
+pre {
+	font-family: 'Droid Sans Mono';
+	font-size: 14px;
+}
+
+table td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+table td img {
+  text-align: center;
+  vertical-align: middle;
+}
+
+#contents a {
+}
+</style>
+<script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+</script>
+</head>
+<body>
+<div id="header" >
+<div id="headersub">
+<h1>Bird Biodiversity <span style="color: #198d8d">Christopher DeGuzman, Franco Dominic Valdecanas, Michael Carr, Isaac Davidson, and Soumana Sylla</span></h1>
+</div>
+</div>
+<div class="container">
+
+<h2>CS 470 : Monitoring Bird Biodiversity</h2>
+	
+<h2> Introduction </h2>
+<p> 	In this project we were given the opportunity to work closely in the Soundscapes to Landscapes project (S2L). We were provided with the audio recordings  that were placed around Sonoma County. These one minute recordings contained a lot of different noise but clearly mainly different bird noises. We were also provided with a .csv file containing information about some of the recordings. With what was given to us our task/goal was to help provide information by helping to detect and classify bird noises in those audio recordings through Deep Learning methods and bird specific programs&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</p>
+<div style="clear:both">
+<h3>Approach/Algorithm</h3>
+<div style="float: right; padding: 20px">
+<a href="undefined"><img src="images/BirdFlow.png" width="400" height="370"></a>
+<p style="font-size: 14px">Here is our flowchart to the project</p>
+</div>
+
+<p> 	Our overall approach was to  train and test these audio files efficiently. To maximize our productivity&nbsp; we were provided a flowchart that allowed us to pick&nbsp; many different paths for all of us to work on. The intial two options was to either strictly work with the labeled ROI's&nbsp; using the .csv or finding featurues with audio files itself.  The end goal was to evaluate  unknown audio files that could potentialy have bird noises in it. To evaulate meaning to detect and classify the bird sounds using different training models. The first step was to find audio features/detect different sounds without the .csv information using Raven and WarbleR (Starting with "Audio .wav" cloud in the flowchart)&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</p>
+<img src="images/truncatedCSVPic.png" alt="" width="690" height="290">
+<h4>Using Raven and WarbleR</h4>
+<p>For the initial detection of sounds within the truncated CSV, the thought was to do this in Raven Pro 1.6. This initial detection would be done with a BLOB (Binary Large Object) detector called BLED (Band Limited Energy Detector) within Raven. BLED takes in a spectrogram of the audio file and attempts to find sounds of interest within a recording. This with the use of R Statistical Language would be used in an attempt to automate the process so that a large data set could be run from a simple command. The first problem with that is that the library constructed within R to do this called Rraven was old and had not been updated in quite some time. Every time a command was ran the command either didn’t work or a fix had to be made to the files or directory of Raven. Opening files from the command line took a week to figure out all the little changes that had to be implemented to Raven’s directory and within Raven software itself. A simple yet exhausting change was changing the actual program name from “Raven Pro 1.6” to just “Raven” so that Rraven could open Raven. Once opening a file was figured out the next challenge was to get Rraven to open an audio file and use BLED within Raven to detect specific sounds. With the library, Rraven not having been updated and wasting over a week on fixes through Raven software engineers, BLED through Raven Pro was abandoned. Having a back up was essential in this case. Within R Statistical Language there was a native library called WarbleR. This library is available on Python as well but was not used using it through R. This does a remarkably similar thing to what BLED does within Raven. You set a frequency range and estimated time of the event and it can attempt a BLOB detection on a file, or in this case many files. As this detected just worked there were some nuances to it. First R statistical language can only have a file folder input of 4 gigabytes or less. In the truncated folder of audio files, the size was in upwards of 30 gigabytes so the detection had to be done in batches of 4 gigabytes. The next nuances were to set the detector to the desired frequency and estimated time. A quick Google search turns up that bird calls are between 1 and 8 kHz so the detector was set for 0 to 9 kHz. Next was to find the time and that was done by taking the CSV file and calculating the duration of a bird call. This was done by a committee or expert and was labeled within the CSV. The duration for the truncated CSV file was between 0.3 and 3 seconds. WarbleR detector was run for 3 days producing multiple CSV files of sounds between 0.3 to 3 seconds and between 0 to 9 kHz. All these files were run in a Python script to combine all the files into one large CSV file to be used later.</p>
+<div>
+  <h4>Example of using WarbleR</h4>
+  <p>All this BLOB detector does is detect sounds from 0 to 9 kHz and within a .3 to 3-second duration. There are two spectrograms and one wav file from one of those spectrograms. </p>
+  <table width="500" border="1">
+    <tr>
+      <td width="10" height="100"><img src="blobdec1.jpeg" width="160%"/> <img src="blobdec2.jpeg"  width="160%"/></td>
+    </tr>
+  </table>
+  <EMBED SRC="blobdec.wav"
+	   VOLUME="50"HEIGHT="60"WIDTH="144">
+  <p> Here is the original sound that the BLOB detected during the 0.3 and 3 second-duration. </p>
+</div>
+<div>
+  
+  <div>
+    <h4>Preproccesing for Training Models</h4>
+    <p>Before we started training we needed to preprocess our current data by padding it with gaussian noise. We did this by grabbing a 3 second window containing the ROI and applying gaussian on it. After that we split into making training models for 1D Audio Features and 2D Spectograms.</p>
+    <div><img src="images/roiSpectogram.png" alt="" width="363" height="273"><img src="images/paddedSpectogram.png" alt="" width="353" height="271"></div>
+  </div>
+  <div>
+    <h4>Extracting 1D Audio Features</h4>
+    <p>&nbsp;We used MATLAB's audioFeatureExtractor to extract certain audio features. When deciding on what features to extract we decided on Mel-frequency cepstral coefficients (MFCC). In our research we found  that these features were commonly used in a lot speech and sound recognition applications so in order to save space we strictly used MFCC.&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</p>
+</div>
+  <div>
+    <h4>Creating 2D Spectograms&nbsp;</h4>
+    <p>We used MATLAB's spectogram function to turn our signal into a spectogram. Using this we could clearly see by the distinct spikes in frequencies where possible regions of interest (ROI's) could be in the one minute recording.&nbsp; &nbsp;</p>
+    <div><img src="images/oneMinuteSpec.png" alt="" width="406" height="300"><img src="images/AFE.png" alt="" width="" height="">&nbsp;</div>
+  </div>
+  <div>
+    <h4>Applying PCA and SVM</h4>
+    <p>When applying both of these techniques we would have a matrix of&nbsp; either 1D Audio Features or 2D Spectograms in each column.&nbsp; PCA was applied similar to our Assignment 2 by using eigencoeffcients and eigenvectors to find the closest match verify if it's the same type of bird. SVM was by creating a classfier for each type of bird and using the One vs Rest method.&nbsp; &nbsp; &nbsp;</p>
+    <div><img src="images/pcaTrainPic.png" alt="" width="596" height="350"><img src="images/pcaTestPic.png" alt="" width="494" height="350"><img src="images/svmTrainPic.png" alt="" width="578" height="350"><img src="images/svmTestPic.png" alt="" width="379" height="350">&nbsp;</div>
+  </div>
+</div>
+
+<h2>Approach to 2D Data</h2>
+<div>
+	<h4>Spectrograms</h4>
+	<p>A spectrogram is a visual depiction of the strength of a signal over time. What spectrograns allow us to do in the case of the project, is convert the audio file of a bird into 2D data to analyse.&nbsp; &nbsp;
+	<br>The method we used to form the spectrograms:&nbsp; &nbsp; &nbsp;</p>
+	<div><img src = "images/spectrogramForming.PNG"></div>
+	<p>
+	<br>The method we used to form the spectrograms:&nbsp; &nbsp; &nbsp;</p>
+</div><img src ="images/s2lam023_190506_2019-05-08_09-00.jpg" width="329" height="136">
+<p>Having the audio signals of the bird chirps as images opened the doorway for image object detection methods. Below are the results from forming recognition modules with CNN Transfer Learning, CNN SVM Feature Extraction: </p>
+	<h4><strong>CNN</strong></h4>
+	<p>In order  for the spectrogram images to be put into the CNN they had to be padded, so we  could keep the information of image borders intact as well as letting the  images survive through deeper networks.</p>
+	<p>Method we used to pad the  spectrograms:</p>
+<p><img src="images/padMethod.PNG" width="414" height="139" alt=""/></p>
+<p>An example of a  padded ROI Spectrogram:</p>
+<p><img src="images/s2lam023_190506_2019-05-08_09-00.jpg" width="333" height="151" alt=""/></p>
+<p>The results  we got from the CNN testing gave the highest percentage recognition rates out  of all the methods in the entire project. A lot of the reason was due to the established  networks we could use and manipulate. In the two different CNN methods, we tested  out a myriad of options and layers as well as 4 different networks – googlenet,  resnet18, alexnet and a custom net of our own making. Due to the promising  results of the first 3, we didn&rsquo;t try out squeezenet, inceptionv3 or the other  resnets, though they could be worth trying.</p>
+<p> Below the results for each of the  methods are given:</p>
+<p><strong>Transfer  Learning </strong></p>
+<p>This method  surmises to taking the knowledge gained from analyzing a dataset and transferring  it to a smaller set. In a CNN the earlier layers extract general features from  the images, letting the deeper layers recognize the more particular features. </p>
+<p>For the  results below we split the training and test in a 30:10 split. This was  mostly for time&rsquo;s sake as it enabled us to experiment with the nets&rsquo; options  and layers manifold, the average time usually being between 3-15 mins. When we  did test with a larger volume of data (at least 150+ training data) it did  increase the recognition rate, giving a 95+ percent on the varied versions of  the preestablished networks, peaking at 98 percent. The times were upwards of  40 mins, peaking at 3 hours. For each of the networks we adjusted the fully  connected layer and classification layer.</p>
+<p>The options  we used for each network were, for the most part:  </p>
+<p><img src="images/TransferOptions.PNG" width="247" height="250" alt=""/></p>
+<p><strong>Options Reasoning:</strong></p>
+<p>The Mini-Batch Size was picked due to the relatively small size we would be usually be testing on and we went for quantity with the tests</p>
+<p>The Max Epochs value was the default, however going smaller signifcantly lowered the accuracy of the method, while higher increased it. Due to there being more data for the CNN to be trained on.</p>
+<p>The LearnRateSchedule was chosen to be piecewise as it speeeds up the tests and it allows for the options LearnRateDropPeriod and LearnRateDropFactor. These values enable InitialLearnRate to be dynamic and is altered depending how the analysis goes. It increased the accuracy for every net, except for when performing TransferLearning with resnet18 surprisingly. When the LearnRateSchedule was set to the default value, ResNet18 was able to reach the 90's</p>
+<p>Shuffle shuffles the data each epoch</p>
+<p>Momentum was given 0.9 as we wanted the last step to contribute pretty significantly for the next step in the Stochastic Gradient Descent process</p>
+<p>Verbose set to false as we were getting the data we wanted from the training plot, confusion matrix and f_score</p>
+<p>Verbose frequency was set to 10 when we were grabbing verbose data, as well as for the command print that trainnetwork does everytime the data is validated</p>
+<p>ValidationFrequency given 20 so it could be validated about 2 times each epoch</p>
+<p>Validation Patience given 3 for quick drops if the gradient was stagnating, however to get greater accuracy we would up it every now and then. Default is infinite and if we wanted to give the module that gave the best results we would leave it on default</p>
+<p><strong>SVM</strong> <br>
+  In this  method we extracted feature representations of the images from different layers  in the CNN we were testing. Then the features extracted are used as predictor  variables and put into a Support Vector Machine.<br>
+In general,  the results did not quite reach the peaks of Transfer Learning, though they  were still quite high. Most of the peaks were in mid to high 80&rsquo;s. Surprisingly,  Resnet recognition rates were better on the more general layers, while the  other nets had their rates halved on those layers. They performed best on the  deeper layers, specifically the fully connected layers.</p>
+<p>The absolute basis modification we did to each net looked like this:</p>
+<p><img src="images/graphOpt.PNG" width="650" height="329" alt=""/></p>
+<h2>Results</h2>
+<div>
+  <p>&nbsp; The best results from these alone was using a 70% : 30% split of the audio files in the truncated .csv. We got an 80% accuracy using PCA    and 72% accuracy using SVM on 1D Audio Features.&nbsp; We couldn't use the same type of data for the othes because it would be too large or took too long for matlab to run.&nbsp;In these last four confusion matrices the training set used 1800 files (300 from each birdcode) and tested on 1500+ unused files.  &nbsp; &nbsp;&nbsp;</p>
+  <div><img src="images/pca1D_7000.png" alt="" width="319" height="300"><img src="images/svm1D_7000.png" alt="" width="314" height="300"><img src="images/pca1D_1800.png" alt="" width="344" height="300"><img src="images/pca2D_1800.png" alt="" width="344" height="300"><img src="images/svm1D_1800.png" alt="" width="353" height="300"><img src="images/svm2D_1800.png" alt="" width="361" height="300"></div>
+</div>
+<p><strong>CNN Transfer Learning Results:</strong></p>
+<p><strong>Resnet18</strong></p>
+<p>Accuracy  with same options: 83 percent<br>
+  Accuracy without learning rate set: 93 Percent</p>
+<p><img src="images/resnetConfu.PNG" width="502" height="392" alt=""/><img src="images/resNettTransfer.PNG" width="868" height="392" alt=""/></p>
+<p><strong>AlexNet</strong><br>
+  Accuracy: 90  %<br>
+Accuracy without  validation patience: 95% </p>
+<h3><img src="images/alexnetTransferConf.PNG" width="474" height="447" alt=""/><img src="images/transferAlexNetData.PNG" width="1023" height="456" alt=""/><img src="images/alexNetTransferConfusion.PNG" width="466" height="384" alt=""/><img src="images/alexnetTransferDataLong.PNG" width="1018" height="405" alt=""/></h3>
+<p><strong>GoogleNet</strong><br>
+Accuracy: 91.7  %</p>
+<p><img src="images/googleNetConf.PNG" width="474" height="403" alt=""/><img src="images/googlenetData.PNG" width="1042" height="406" alt=""/></p>
+<p><strong>CustomNet</strong><br>
+  We made a mini  neural network, mainly for the input layer as we wanted to see if the results  would change if we kept the same aspect ratio of the images. To fit in the  other networks we had to squish the width of ROIs so this let us see what would  happen if we did not have to do it.<br>
+  The layers  we used:</p>
+<h3><img src="images/layersCust.PNG" width="403" height="206" alt=""/></h3>
+<p>It didn&rsquo;t reach  the levels of success the other networks did, however it was still around the  same percentage as the other methods we tried. We also found the more layers  added, the higher it would get, in a pretty rapid manner. We started off with 6  layers, the and then added a couple at a time till we reached the 13 layer  graph we ended up with. We went from 22% to 78% so maybe with some more time  and a much a greater understanding of all the layers and options MATLAB offered,  it could have lead to something pretty fruitful. <br>
+Something  that was limiting the results of the customNet was that it would consistently confuse  a Dark-Eyed Junco (DEJU) and a Orange Crowned Warbler (OCWA) with each other.  This was actually a trend that was common in all the methods, albeit to a  lesser extent in the other nets.</p>
+<p><img src="images/customConf.PNG" width="420" height="442" alt=""/><img src="images/customLaDataPatience.PNG" width="1170" height="439" alt=""/></p>
+<p><strong>CNN SVM</strong> <strong>Results:</strong></p>
+<p><strong>Resnet18</strong><br>
+  Accuracy: 82  %<br>
+  Best Layer:  res2a (Early reLu Layer)</p>
+<h3><img src="images/resnetConfuSVM.PNG" width="471" height="493" alt=""/></h3>
+<p><strong>AlexNet</strong><br>
+  Accuracy:  85%<br>
+Best Layer:  FC6, First Fully Connected Layer</p>
+<p><img src="images/alexNetSVMFC6.PNG" width="482" height="427" alt=""/></p>
+<p><strong>GoogleNet</strong><br>
+  Accuracy:  88%<br>
+Best Layer:  full-500 (FullyConnected Layer)</p>
+<p><img src="../../googlenetConfusion.PNG" width="499" height="470" alt=""/></p>
+<p><strong>CustomNet</strong><br>
+With the  customNet that we&rsquo;ve established above, the best results we got were from extracting  a feature representation from the Fully Connected Layer. Admittedly it was still  fairly low, with the peak being 67%. However extracting a more general  representation from a higher layer was significantly lower, usually being in  the low 30s</p>
+<p>Accuracy: 67%<br>
+  Best Layer:  Fully Connected Layer</p>
+<p><img src="images/svmCustomNet.PNG" width="497" height="487" alt=""/></p>
+<p>&nbsp;</p>
+<h3>Conclusions</h3>
+<p>When it came to extracting features using warblR we didn't know it was going to be a process</p>
+
+<p>From our results we saw that using strictly PCA and SVM methods was not enough in terms of accuracy and effciency. Although we can see that with a lot of training that classifying can become more accurate but that would mean using up a lot more space and memory. Specifically we saw that when it came down to similar bird calls based off either the duration or frequency it was a lot harder to distinguish between the two. It also seemed like we had much more data for Pacific-slope Flycatcher (PSFL) which made it a lot easier to classify that one. For those two data models alone we can clearly see that it wasn't as good as using CNN methods.</p>
+<p>In terms of the CNN method, it gave a lot of positive results, as they were the highest out of  all the methods we tried in the entire project. With a lot of time to train and  load the data and some fine tuning to the network itself, we believe Transfer  Learning could be modified to get a near 99 match, at least when deciphering  between the 6 classes we were given.  The  main hiccup that was pretty consistent was the confusion between the Orange  Colored Warbler (OCWA) and the Dark Eyed Junco(DEJU). Observing with the human  eye the ROIs do look quite similar, but you can make out a </p>
+	
+<h3>References</h3>
+<p>https://medium.com/@mikesmales/sound-classification-using-deep-learning-8bc2aa1990b7</p>
+<p>https://www.mathworks.com/help/signal/ref/spectrogram.html</p>
+<p>https://www.mathworks.com/help/audio/ref/audiofeatureextractor.html?s_tid=mwa_osa_a</p>
+<p><a href="https://www.mathworks.com/help/deeplearning/ref/trainingoptions.html">https://www.mathworks.com/help/deeplearning/ref/trainingoptions.html</a></p>
+<p><a href="https://arxiv.org/pdf/1809.01543.pdf">https://arxiv.org/pdf/1809.01543.pdf</a></p>
+<p><a href="https://www.groundai.com/project/eventness-object-detection-on-spectrograms-for-temporal-localization-of-audio-events/1">https://www.groundai.com/project/eventness-object-detection-on-spectrograms-for-temporal-localization-of-audio-events/1</a></p>
+<p><a href="https://www.researchgate.net/publication/330892119_Emotion_Recognition_from_Speech_Using_the_Bag-of-Visual_Words_on_Audio_Segment_Spectrograms">https://www.researchgate.net/publication/330892119_Emotion_Recognition_from_Speech_Using_the_Bag-of-Visual_Words_on_Audio_Segment_Spectrograms</a></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<div style="clear:both" >
+	
+</div>
+</body>
+</html>
